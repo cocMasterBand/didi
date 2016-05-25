@@ -8,12 +8,11 @@
 ``拜伦维斯``
 
 ###一期目标
-![一期目标](http://research.xiaojukeji.com/competition/images/bannermac_chinese.jpeg)
+![一期目标](img/one.jpeg)
 
 
 ###二期目标
-![二期目标](http://research.xiaojukeji.com/competition/images/bannertech_chinese.jpeg)
-
+![二期目标](img/two.jpeg)
 
 
 #### 比赛详细介绍
