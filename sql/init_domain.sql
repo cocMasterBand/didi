@@ -15,7 +15,7 @@ CREATE TABLE `tb_order_data` (
 
 
 
-CREATE TABLE `tb_ traffic_data` (
+CREATE TABLE `tb_traffic_data` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `district_hash` varchar(32) NOT NULL DEFAULT '' COMMENT '区域哈希值',
   `tj_level` varchar(64) NOT NULL DEFAULT '' COMMENT '不同拥堵程度的路段数',
