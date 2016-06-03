@@ -23,7 +23,7 @@
             <value>${db.password}</value>
         </property>
         <!--连接池中保留的最小连接数。 -->
-        <property name="minPoolSize" value="10"/>
+        <property name="minPoolSize" value="30"/>
         <!--连接池中保留的最大连接数。Default: 15 -->
         <property name="maxPoolSize" value="100"/>
         <!--最大空闲时间,1800秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 -->
@@ -43,12 +43,11 @@
     <!-- spring和MyBatis，不需要mybatis的配置映射文件 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <!--todo, add PO-->
-        <property name="mapperLocations" value="classpath:com"/>
+        <property name="mapperLocations" value="classpath:com/diwa/**/mapper/*.xml"/>
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com"/>
+        <property name="basePackage" value="com.diwa.**.model"/>
     </bean>
     
 </beans>

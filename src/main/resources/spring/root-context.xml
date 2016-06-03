@@ -12,15 +12,16 @@
 
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
-            <!--&lt;!&ndash;本地环境 &ndash;&gt;-->
             <list>
+                <value>classpath:properties/database.properties</value>
             </list>
         </property>
         <property name="fileEncoding" value="UTF-8"/>
         <property name="ignoreResourceNotFound" value="false"/>
         <property name="ignoreUnresolvablePlaceholders" value="true"/>
     </bean>
-    `
+
+    <!--db-->
     <import resource="database-config.xml"/>
 
 </beans>
