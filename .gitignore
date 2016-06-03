@@ -40,7 +40,6 @@ log
 # eclipse project files
 *.classpath
 *.project
-logback.xml
 .settings/*
 /*/.backList
 #idea
