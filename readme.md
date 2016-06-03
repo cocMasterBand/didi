@@ -29,3 +29,6 @@
 * 矩阵相关知识
 	* [传送门](http://zh.wikihow.com/%E8%AE%A1%E7%AE%97%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95)
 * map reduce
+* 线性回归
+	[最小二乘法](http://baike.baidu.com/link?url=TfEOqDh3t27Y1-_McqN-lfevRU1cg8S8m5cO7DibTRJew8lwGzSqmT7KsJRrjLWtf_VQrYeLXNaoDFdX19Hvoa)
+
