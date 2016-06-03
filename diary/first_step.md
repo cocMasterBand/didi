@@ -71,6 +71,9 @@ C.3 PM2.5值
 
 ```
 [回归与梯度下降](http://www.cnblogs.com/LeftNotEasy/archive/2010/12/05/mathmatic_in_machine_learning_1_regression_and_gradient_descent.html)
+
 [什么是回归](http://www.cnblogs.com/jerrylead/archive/2011/03/05/1971867.html)
+
+[机器学习专题](http://leftnoteasy.cnblogs.com/)
 
 
