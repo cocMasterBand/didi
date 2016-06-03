@@ -1,6 +1,6 @@
 package com.diwa.orderdata.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class OrderData {
     private Integer id;
@@ -93,9 +93,9 @@ public class OrderData {
         this.orderTime = orderTime;
     }
 
-    @java.lang.Override
-    public java.lang.String toString() {
-        final java.lang.StringBuffer sb = new java.lang.StringBuffer("OrderData{");
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("OrderData{");
         sb.append("id=").append(id);
         sb.append(", orderId='").append(orderId).append('\'');
         sb.append(", driverId='").append(driverId).append('\'');

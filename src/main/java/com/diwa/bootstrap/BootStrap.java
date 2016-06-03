@@ -11,14 +11,16 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class BootStrap {
     private static final Logger logger = LoggerFactory.getLogger(BootStrap.class);
 
+    private static ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/root-context.xml");
+
     public static void main(String[] args) {
         logger.info("BootStrap Main begin.");
 
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/root-context.xml");
+        applicationContext.getResource("");
 
-        String displayName = applicationContext.getDisplayName();
 
-        System.out.println(displayName);
+
+
 
     }
 }
