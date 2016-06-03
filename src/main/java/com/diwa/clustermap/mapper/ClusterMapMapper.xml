@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.diwa.clustermap.mapper.ClusterMapMapper" >
+  <resultMap id="BaseResultMap" type="com.diwa.clustermap.model.ClusterMap" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="district_hash" property="districtHash" jdbcType="VARCHAR" />
+    <result column="district_id" property="districtId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, district_hash, district_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_cluster_map
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_cluster_map
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.diwa.clustermap.model.ClusterMap" >
+    insert into tb_cluster_map (id, district_hash, district_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{districtHash,jdbcType=VARCHAR}, #{districtId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.diwa.clustermap.model.ClusterMap" >
+    insert into tb_cluster_map
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="districtHash != null" >
+        district_hash,
+      </if>
+      <if test="districtId != null" >
+        district_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="districtHash != null" >
+        #{districtHash,jdbcType=VARCHAR},
+      </if>
+      <if test="districtId != null" >
+        #{districtId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.diwa.clustermap.model.ClusterMap" >
+    update tb_cluster_map
+    <set >
+      <if test="districtHash != null" >
+        district_hash = #{districtHash,jdbcType=VARCHAR},
+      </if>
+      <if test="districtId != null" >
+        district_id = #{districtId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.diwa.clustermap.model.ClusterMap" >
+    update tb_cluster_map
+    set district_hash = #{districtHash,jdbcType=VARCHAR},
+      district_id = #{districtId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
