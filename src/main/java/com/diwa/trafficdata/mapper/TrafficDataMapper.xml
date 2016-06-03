@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.diwa.trafficdata.mapper.TrafficDataMapper" >
+  <resultMap id="BaseResultMap" type="com.diwa.trafficdata.model.TrafficData" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="district_hash" property="districtHash" jdbcType="VARCHAR" />
+    <result column="tj_level" property="tjLevel" jdbcType="VARCHAR" />
+    <result column="tj_time" property="tjTime" jdbcType="VARCHAR" />
+    <result column="traffic_time" property="trafficTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, district_hash, tj_level, tj_time, traffic_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_traffic_data
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_traffic_data
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.diwa.trafficdata.model.TrafficData" >
+    insert into tb_traffic_data (id, district_hash, tj_level, 
+      tj_time, traffic_time)
+    values (#{id,jdbcType=INTEGER}, #{districtHash,jdbcType=VARCHAR}, #{tjLevel,jdbcType=VARCHAR}, 
+      #{tjTime,jdbcType=VARCHAR}, #{trafficTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.diwa.trafficdata.model.TrafficData" >
+    insert into tb_traffic_data
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="districtHash != null" >
+        district_hash,
+      </if>
+      <if test="tjLevel != null" >
+        tj_level,
+      </if>
+      <if test="tjTime != null" >
+        tj_time,
+      </if>
+      <if test="trafficTime != null" >
+        traffic_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="districtHash != null" >
+        #{districtHash,jdbcType=VARCHAR},
+      </if>
+      <if test="tjLevel != null" >
+        #{tjLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="tjTime != null" >
+        #{tjTime,jdbcType=VARCHAR},
+      </if>
+      <if test="trafficTime != null" >
+        #{trafficTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.diwa.trafficdata.model.TrafficData" >
+    update tb_traffic_data
+    <set >
+      <if test="districtHash != null" >
+        district_hash = #{districtHash,jdbcType=VARCHAR},
+      </if>
+      <if test="tjLevel != null" >
+        tj_level = #{tjLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="tjTime != null" >
+        tj_time = #{tjTime,jdbcType=VARCHAR},
+      </if>
+      <if test="trafficTime != null" >
+        traffic_time = #{trafficTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.diwa.trafficdata.model.TrafficData" >
+    update tb_traffic_data
+    set district_hash = #{districtHash,jdbcType=VARCHAR},
+      tj_level = #{tjLevel,jdbcType=VARCHAR},
+      tj_time = #{tjTime,jdbcType=VARCHAR},
+      traffic_time = #{trafficTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
