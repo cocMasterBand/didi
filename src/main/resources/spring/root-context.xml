@@ -22,6 +22,23 @@
         <property name="ignoreUnresolvablePlaceholders" value="true"/>
     </bean>
 
+    <!-- 将多个配置文件位置放到列表中 -->
+    <bean id="propertyResources" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+                <!-- 推荐使用file的方式引入，这样可以将配置和代码分离 -->
+                <!-- <value>classpath:napos.properties</value> -->
+                <value>classpath:search.properties</value>
+                <value>classpath:mail.properties</value>
+            </list>
+        </constructor-arg>
+    </bean>
+    <!-- 读取properties -->
+    <bean class="com.diwa.util.ConfigUtils">
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="locations" ref="propertyResources"/>
+    </bean>
+
     <!--db-->
     <import resource="database-config.xml"/>
 
