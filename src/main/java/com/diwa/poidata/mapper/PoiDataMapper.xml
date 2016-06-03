@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.diwa.poidata.mapper.PoiDataMapper" >
+  <resultMap id="BaseResultMap" type="com.diwa.poidata.model.PoiData" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="district_hash" property="districtHash" jdbcType="VARCHAR" />
+    <result column="poi_class" property="poiClass" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, district_hash, poi_class
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_poi_data
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_poi_data
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.diwa.poidata.model.PoiData" >
+    insert into tb_poi_data (id, district_hash, poi_class
+      )
+    values (#{id,jdbcType=INTEGER}, #{districtHash,jdbcType=VARCHAR}, #{poiClass,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.diwa.poidata.model.PoiData" >
+    insert into tb_poi_data
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="districtHash != null" >
+        district_hash,
+      </if>
+      <if test="poiClass != null" >
+        poi_class,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="districtHash != null" >
+        #{districtHash,jdbcType=VARCHAR},
+      </if>
+      <if test="poiClass != null" >
+        #{poiClass,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.diwa.poidata.model.PoiData" >
+    update tb_poi_data
+    <set >
+      <if test="districtHash != null" >
+        district_hash = #{districtHash,jdbcType=VARCHAR},
+      </if>
+      <if test="poiClass != null" >
+        poi_class = #{poiClass,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.diwa.poidata.model.PoiData" >
+    update tb_poi_data
+    set district_hash = #{districtHash,jdbcType=VARCHAR},
+      poi_class = #{poiClass,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

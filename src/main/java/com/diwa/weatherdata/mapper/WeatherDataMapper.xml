@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.diwa.weatherdata.mapper.WeatherDataMapper" >
+  <resultMap id="BaseResultMap" type="com.diwa.weatherdata.model.WeatherData" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="weather" property="weather" jdbcType="INTEGER" />
+    <result column="temperature" property="temperature" jdbcType="TINYINT" />
+    <result column="PM" property="pm" jdbcType="INTEGER" />
+    <result column="weater_time" property="weaterTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, time, weather, temperature, PM, weater_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_weather_data
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_weather_data
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.diwa.weatherdata.model.WeatherData" >
+    insert into tb_weather_data (id, time, weather, 
+      temperature, PM, weater_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{time,jdbcType=VARCHAR}, #{weather,jdbcType=INTEGER}, 
+      #{temperature,jdbcType=TINYINT}, #{pm,jdbcType=INTEGER}, #{weaterTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.diwa.weatherdata.model.WeatherData" >
+    insert into tb_weather_data
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="weather != null" >
+        weather,
+      </if>
+      <if test="temperature != null" >
+        temperature,
+      </if>
+      <if test="pm != null" >
+        PM,
+      </if>
+      <if test="weaterTime != null" >
+        weater_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="weather != null" >
+        #{weather,jdbcType=INTEGER},
+      </if>
+      <if test="temperature != null" >
+        #{temperature,jdbcType=TINYINT},
+      </if>
+      <if test="pm != null" >
+        #{pm,jdbcType=INTEGER},
+      </if>
+      <if test="weaterTime != null" >
+        #{weaterTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.diwa.weatherdata.model.WeatherData" >
+    update tb_weather_data
+    <set >
+      <if test="time != null" >
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="weather != null" >
+        weather = #{weather,jdbcType=INTEGER},
+      </if>
+      <if test="temperature != null" >
+        temperature = #{temperature,jdbcType=TINYINT},
+      </if>
+      <if test="pm != null" >
+        PM = #{pm,jdbcType=INTEGER},
+      </if>
+      <if test="weaterTime != null" >
+        weater_time = #{weaterTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.diwa.weatherdata.model.WeatherData" >
+    update tb_weather_data
+    set time = #{time,jdbcType=VARCHAR},
+      weather = #{weather,jdbcType=INTEGER},
+      temperature = #{temperature,jdbcType=TINYINT},
+      PM = #{pm,jdbcType=INTEGER},
+      weater_time = #{weaterTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
