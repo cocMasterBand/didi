@@ -12,7 +12,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by di on 3/6/2016.
@@ -31,6 +33,23 @@ public class BootStrap {
 
 
         OrderDataMapper orderDataMapper = applicationContext.getBean(OrderDataMapper.class);
+
+
+        List list = new ArrayList<>();
+        for (int i = 0; i < 5; i++){
+            OrderData orderData = new OrderData();
+            orderData.setDriverId(i + "");
+            orderData.setOrderId(i + "");
+            orderData.setPassengerId(i + "");
+            orderData.setDestDistrictHash(i + "");
+            orderData.setStartDistrictHash(i + "");
+            orderData.setPrice((double) i);
+            orderData.setTime("2016-06-03 18:06:0" + i);
+            orderData.setOrderTime(new Timestamp(System.currentTimeMillis()));
+            list.add(orderData);
+        }
+
+        orderDataMapper.insertBatch(list);
 
 //        sample 4 OrderData
         new Thread(new Worker<OrderDataMapper, OrderData>(
