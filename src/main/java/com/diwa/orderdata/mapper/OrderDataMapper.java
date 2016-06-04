@@ -1,6 +1,7 @@
 package com.diwa.orderdata.mapper;
 
 import com.diwa.orderdata.model.OrderData;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,5 +18,5 @@ public interface OrderDataMapper {
 
     int updateByPrimaryKey(OrderData record);
 
-    int insertBatch(List<OrderData> record);
+    int insertBatch(@Param("record") List<OrderData> record);
 }

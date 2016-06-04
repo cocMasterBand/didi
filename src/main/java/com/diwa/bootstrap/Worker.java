@@ -21,17 +21,15 @@ public abstract class Worker<D, P> implements Runnable {
 
     private D dao;  //PO的dao
     private String methodName = "insert";  //对应dao的方法 默认insert
-    private Method method;
     private String path;    //文件路径
     private TransLineFunction<P> transLineFunction;     //将文件的一行, 变成一个PO的方法
 
     public Worker() {
     }
 
-    public Worker(D dao, String methodName, Method method, String path, TransLineFunction<P> transLineFunction) {
+    public Worker(D dao, String methodName, String path, TransLineFunction<P> transLineFunction) {
         this.dao = dao;
         this.methodName = methodName;
-        this.method = method;
         this.path = path;
         this.transLineFunction = transLineFunction;
     }

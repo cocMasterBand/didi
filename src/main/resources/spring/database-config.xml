@@ -41,18 +41,29 @@
     </bean>
 
     <!-- spring和MyBatis，不需要mybatis的配置映射文件 -->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="mapperLocations" value="classpath:com/diwa/**/mapper/*.xml"/>
-    </bean>
+    <!--<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+        <!--<property name="dataSource" ref="dataSource"/>-->
+        <!--<property name="mapperLoca  tions" value="classpath:com/diwa/**/mapper/*.xml"/>-->
+    <!--</bean>-->
 
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.diwa.**.model"/>
-    </bean>
+    <!--<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
+        <!--<property name="basePackage" value="com.diwa.**.model"/>-->
+    <!--</bean>-->
 
     <bean id="orderDataMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
         <property name="mapperInterface" value="com.diwa.orderdata.mapper.OrderDataMapper" />
         <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+
+    <!-- spring和MyBatis，不需要mybatis的配置映射文件 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath:com/diwa/**/mapper/*.xml"/>
+        <property name="typeAliasesPackage" value="com.diwa.**.model"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.diwa.**.mapper" />
     </bean>
     
 </beans>

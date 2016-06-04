@@ -2,7 +2,6 @@ package com.diwa.bootstrap;
 
 import com.diwa.orderdata.mapper.OrderDataMapper;
 import com.diwa.orderdata.model.OrderData;
-import com.diwa.util.ConfigUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -71,27 +70,28 @@ public class BootStrap {
         return timestamp;
     }
 
-    private static List<String> getOrderDataFilePath() {
-        return new ArrayList<>(Arrays.asList("/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-01",
-                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-02",
-                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-03",
-                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-04",
-                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-05",
-                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-06",
-                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-07",
-                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-08",
-                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-09",
-                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-10",
-                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-11",
-                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-12",
-                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-13",
-                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-14",
-                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-15",
-                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-16",
-                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-17",
-                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-18",
-                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-19",
-                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-20",
+    public static List<String> getOrderDataFilePath() {
+        return new ArrayList<>(Arrays.asList(
+//                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-01",
+//                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-02",
+//                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-03",
+//                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-04",
+//                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-05",
+//                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-06",
+//                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-07",
+//                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-08",
+//                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-09",
+//                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-10",
+//                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-11",
+//                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-12",
+//                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-13",
+//                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-14",
+//                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-15",
+//                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-16",
+//                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-17",
+//                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-18",
+//                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-19",
+//                "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-20",
                 "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-21"));
     }
 }
