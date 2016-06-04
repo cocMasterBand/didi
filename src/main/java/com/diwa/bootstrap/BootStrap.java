@@ -1,6 +1,5 @@
 package com.diwa.bootstrap;
 
-import com.diwa.constant.FileNameConstant;
 import com.diwa.orderdata.mapper.OrderDataMapper;
 import com.diwa.orderdata.model.OrderData;
 import com.diwa.util.ConfigUtils;
@@ -33,6 +32,23 @@ public class BootStrap {
         logger.info("BootStrap Main begin.");
 
         OrderDataMapper orderDataMapper = applicationContext.getBean(OrderDataMapper.class);
+
+
+        List list = new ArrayList<>();
+        for (int i = 0; i < 5; i++){
+            OrderData orderData = new OrderData();
+            orderData.setDriverId(i + "");
+            orderData.setOrderId(i + "");
+            orderData.setPassengerId(i + "");
+            orderData.setDestDistrictHash(i + "");
+            orderData.setStartDistrictHash(i + "");
+            orderData.setPrice((double) i);
+            orderData.setTime("2016-06-03 18:06:0" + i);
+            orderData.setOrderTime(new Timestamp(System.currentTimeMillis()));
+            list.add(orderData);
+        }
+
+        orderDataMapper.insertBatch(list);
 
         //        sample 4 OrderData
         getOrderDataFilePath().forEach(path -> {

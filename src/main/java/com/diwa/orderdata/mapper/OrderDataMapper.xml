@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.diwa.orderdata.mapper.OrderDataMapper" >
-  <resultMap id="BaseResultMap" type="com.diwa.orderdata.model.OrderData" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
-    <result column="driver_id" property="driverId" jdbcType="VARCHAR" />
-    <result column="passenger_id" property="passengerId" jdbcType="VARCHAR" />
-    <result column="start_district_hash" property="startDistrictHash" jdbcType="VARCHAR" />
-    <result column="dest_district_hash" property="destDistrictHash" jdbcType="VARCHAR" />
-    <result column="price" property="price" jdbcType="DOUBLE" />
-    <result column="time" property="time" jdbcType="VARCHAR" />
-    <result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <sql id="Base_Column_List" >
+<mapper namespace="com.diwa.orderdata.mapper.OrderDataMapper">
+    <resultMap id="BaseResultMap" type="com.diwa.orderdata.model.OrderData">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="order_id" property="orderId" jdbcType="VARCHAR"/>
+        <result column="driver_id" property="driverId" jdbcType="VARCHAR"/>
+        <result column="passenger_id" property="passengerId" jdbcType="VARCHAR"/>
+        <result column="start_district_hash" property="startDistrictHash" jdbcType="VARCHAR"/>
+        <result column="dest_district_hash" property="destDistrictHash" jdbcType="VARCHAR"/>
+        <result column="price" property="price" jdbcType="DOUBLE"/>
+        <result column="time" property="time" jdbcType="VARCHAR"/>
+        <result column="order_time" property="orderTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     id, order_id, driver_id, passenger_id, start_district_hash, dest_district_hash, price, 
     time, order_time
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from tb_order_data
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_order_data
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from tb_order_data
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.diwa.orderdata.model.OrderData" >
+    <insert id="insert" parameterType="com.diwa.orderdata.model.OrderData">
     insert into tb_order_data (id, order_id, driver_id, 
       passenger_id, start_district_hash, dest_district_hash, 
       price, time, order_time
@@ -36,98 +36,98 @@
       #{price,jdbcType=DOUBLE}, #{time,jdbcType=VARCHAR}, #{orderTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.diwa.orderdata.model.OrderData" >
-    insert into tb_order_data
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="orderId != null" >
-        order_id,
-      </if>
-      <if test="driverId != null" >
-        driver_id,
-      </if>
-      <if test="passengerId != null" >
-        passenger_id,
-      </if>
-      <if test="startDistrictHash != null" >
-        start_district_hash,
-      </if>
-      <if test="destDistrictHash != null" >
-        dest_district_hash,
-      </if>
-      <if test="price != null" >
-        price,
-      </if>
-      <if test="time != null" >
-        time,
-      </if>
-      <if test="orderTime != null" >
-        order_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="orderId != null" >
-        #{orderId,jdbcType=VARCHAR},
-      </if>
-      <if test="driverId != null" >
-        #{driverId,jdbcType=VARCHAR},
-      </if>
-      <if test="passengerId != null" >
-        #{passengerId,jdbcType=VARCHAR},
-      </if>
-      <if test="startDistrictHash != null" >
-        #{startDistrictHash,jdbcType=VARCHAR},
-      </if>
-      <if test="destDistrictHash != null" >
-        #{destDistrictHash,jdbcType=VARCHAR},
-      </if>
-      <if test="price != null" >
-        #{price,jdbcType=DOUBLE},
-      </if>
-      <if test="time != null" >
-        #{time,jdbcType=VARCHAR},
-      </if>
-      <if test="orderTime != null" >
-        #{orderTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.diwa.orderdata.model.OrderData" >
-    update tb_order_data
-    <set >
-      <if test="orderId != null" >
-        order_id = #{orderId,jdbcType=VARCHAR},
-      </if>
-      <if test="driverId != null" >
-        driver_id = #{driverId,jdbcType=VARCHAR},
-      </if>
-      <if test="passengerId != null" >
-        passenger_id = #{passengerId,jdbcType=VARCHAR},
-      </if>
-      <if test="startDistrictHash != null" >
-        start_district_hash = #{startDistrictHash,jdbcType=VARCHAR},
-      </if>
-      <if test="destDistrictHash != null" >
-        dest_district_hash = #{destDistrictHash,jdbcType=VARCHAR},
-      </if>
-      <if test="price != null" >
-        price = #{price,jdbcType=DOUBLE},
-      </if>
-      <if test="time != null" >
-        time = #{time,jdbcType=VARCHAR},
-      </if>
-      <if test="orderTime != null" >
-        order_time = #{orderTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.diwa.orderdata.model.OrderData" >
+    <insert id="insertSelective" parameterType="com.diwa.orderdata.model.OrderData">
+        insert into tb_order_data
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="orderId != null">
+                order_id,
+            </if>
+            <if test="driverId != null">
+                driver_id,
+            </if>
+            <if test="passengerId != null">
+                passenger_id,
+            </if>
+            <if test="startDistrictHash != null">
+                start_district_hash,
+            </if>
+            <if test="destDistrictHash != null">
+                dest_district_hash,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="time != null">
+                time,
+            </if>
+            <if test="orderTime != null">
+                order_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="orderId != null">
+                #{orderId,jdbcType=VARCHAR},
+            </if>
+            <if test="driverId != null">
+                #{driverId,jdbcType=VARCHAR},
+            </if>
+            <if test="passengerId != null">
+                #{passengerId,jdbcType=VARCHAR},
+            </if>
+            <if test="startDistrictHash != null">
+                #{startDistrictHash,jdbcType=VARCHAR},
+            </if>
+            <if test="destDistrictHash != null">
+                #{destDistrictHash,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=DOUBLE},
+            </if>
+            <if test="time != null">
+                #{time,jdbcType=VARCHAR},
+            </if>
+            <if test="orderTime != null">
+                #{orderTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.diwa.orderdata.model.OrderData">
+        update tb_order_data
+        <set>
+            <if test="orderId != null">
+                order_id = #{orderId,jdbcType=VARCHAR},
+            </if>
+            <if test="driverId != null">
+                driver_id = #{driverId,jdbcType=VARCHAR},
+            </if>
+            <if test="passengerId != null">
+                passenger_id = #{passengerId,jdbcType=VARCHAR},
+            </if>
+            <if test="startDistrictHash != null">
+                start_district_hash = #{startDistrictHash,jdbcType=VARCHAR},
+            </if>
+            <if test="destDistrictHash != null">
+                dest_district_hash = #{destDistrictHash,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=DOUBLE},
+            </if>
+            <if test="time != null">
+                time = #{time,jdbcType=VARCHAR},
+            </if>
+            <if test="orderTime != null">
+                order_time = #{orderTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.diwa.orderdata.model.OrderData">
     update tb_order_data
     set order_id = #{orderId,jdbcType=VARCHAR},
       driver_id = #{driverId,jdbcType=VARCHAR},
@@ -139,4 +139,17 @@
       order_time = #{orderTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into tb_order_data (order_id, driver_id,
+        passenger_id,start_district_hash,dest_district_hash,price,time,order_time)
+        values
+        <foreach collection="list" index="index" item="record" separator=",">
+            (#{record.orderId,jdbcType=VARCHAR},
+            #{record.driverId,jdbcType=VARCHAR},#{record.passengerId,jdbcType=VARCHAR},
+            #{record.startDistrictHash,jdbcType=VARCHAR},
+            #{record.destDistrictHash,jdbcType=VARCHAR},#{record.price,jdbcType=DOUBLE},#{record.time,jdbcType=VARCHAR},#{record.orderTime,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
 </mapper>
