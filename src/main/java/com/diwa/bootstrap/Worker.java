@@ -50,21 +50,18 @@ public abstract class Worker<D, P> implements Runnable {
             //1000个一批, 写入db
             while ((str = bufferedReader.readLine()) != null) {
                 logger.info("file:{}, NO.{}", path, sum++);
-
                 P reduce = transLineFunction.deal(str);
                 count++;
-
                 if (count == 1000){
                     this.putInDb(insert, dao, bufferList);
                     bufferList = Collections.emptyList();
                 }
             }
-
             //将剩余的加入
             this.putInDb(insert, dao, bufferList);
 
         } catch (Exception e) {
-            System.out.println(e.getStackTrace());
+            e.printStackTrace();
         }
     }
 

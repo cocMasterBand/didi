@@ -12,7 +12,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.Timestamp;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,9 +32,7 @@ public class OrderReader {
         int i = 0;
         BootStrap.getOrderDataFilePath().forEach(path -> {
             System.out.println("thread" + i + "start." + "path:" + path);
-            new Thread(
-                    new OrderWorker(orderDataMapper, path)
-            ).start();
+            new OrderWorker(orderDataMapper, path).run();
         });
     }
 }
@@ -68,7 +65,7 @@ class OrderWorker implements Runnable {
             int count = 0;
             List<OrderData> bufferList = new ArrayList<>();
 
-            //1000个一批, 写入db
+            //10000个一批, 写入db
             while ((str = bufferedReader.readLine()) != null) {
                 sum++;
 
@@ -76,12 +73,12 @@ class OrderWorker implements Runnable {
                 bufferList.add(reduce);
                 count++;
 
-                if (count == 1000) {
+                if (count == 10000) {
                     System.out.println("file" + path + "NO." + sum);
                     try {
                         orderDataMapper.insertBatch(bufferList);
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        System.out.println("insert batch error");
                     }
                     bufferList = new ArrayList<>();
                     count = 0;
@@ -92,13 +89,11 @@ class OrderWorker implements Runnable {
             orderDataMapper.insertBatch(bufferList);
 
         } catch (Exception e) {
-            e.printStackTrace();
         } finally {
             if (bufferedReader != null) {
                 try {
                     bufferedReader.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
                 }
             }
         }
@@ -128,7 +123,7 @@ class OrderWorker implements Runnable {
         Date parse = new Date();
         try {
             parse = sdf.parse(string);
-        } catch (ParseException e) {
+        } catch (Exception e) {
 
         }
         timestamp = new Timestamp(parse.getTime());
