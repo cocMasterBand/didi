@@ -6,6 +6,9 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by di on 3/6/2016.
@@ -35,13 +38,29 @@ public abstract class Worker<D, P> implements Runnable {
             Method insert = dao.getClass().getMethod(methodName);
             Assert.notNull(insert, "get dao error!");
 
+            int count = 0;
+            List<P> bufferList = new ArrayList<>();
+
+            //1000个一批, 写入db
             while ((str = bufferedReader.readLine()) != null) {
                 P reduce = transLineFunction.deal(str);
-                insert.invoke(dao, reduce);
+                count++;
+
+                if (count == 1000){
+                    this.putInDb(bufferList);
+                    bufferList = Collections.emptyList();
+                }
             }
+
+            //将剩余的加入
+            this.putInDb(bufferList);
 
         } catch (Exception e) {
             System.out.println(e.getStackTrace());
         }
+    }
+
+    private void putInDb(List<P> bufferList){
+
     }
 }
