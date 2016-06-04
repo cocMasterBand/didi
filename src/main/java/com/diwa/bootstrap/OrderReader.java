@@ -2,7 +2,6 @@ package com.diwa.bootstrap;
 
 import com.diwa.orderdata.mapper.OrderDataMapper;
 import com.diwa.orderdata.model.OrderData;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -10,12 +9,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -31,13 +30,13 @@ public class OrderReader {
 
         OrderDataMapper orderDataMapper = (OrderDataMapper) applicationContext.getBean("orderDataMapper");
 
-        OrderData orderData = orderDataMapper.selectByPrimaryKey(1);
-        System.out.println(ToStringBuilder.reflectionToString(orderData));
-//        BootStrap.getOrderDataFilePath().forEach(path -> {
-//            new Thread(
-//                    new OrderWorker(orderDataMapper, path)
-//            ).start();
-//        });
+        int i = 0;
+        BootStrap.getOrderDataFilePath().forEach(path -> {
+            System.out.println("thread" + i + "start." + "path:" + path);
+            new Thread(
+                    new OrderWorker(orderDataMapper, path)
+            ).start();
+        });
     }
 }
 
@@ -59,8 +58,9 @@ class OrderWorker implements Runnable {
 
     @Override
     public void run() {
+        BufferedReader bufferedReader = null;
         try {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(path)));
+            bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(path)));
 
             String str = "";
 
@@ -70,14 +70,20 @@ class OrderWorker implements Runnable {
 
             //1000个一批, 写入db
             while ((str = bufferedReader.readLine()) != null) {
-                System.out.println("file"+ path + "NO." + sum++);
+                sum++;
 
                 OrderData reduce = this.deal(str);
+                bufferList.add(reduce);
                 count++;
 
                 if (count == 1000) {
-                    orderDataMapper.insertBatch(bufferList);
-                    bufferList = Collections.emptyList();
+                    System.out.println("file" + path + "NO." + sum);
+                    try {
+                        orderDataMapper.insertBatch(bufferList);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    bufferList = new ArrayList<>();
                     count = 0;
                 }
             }
@@ -86,7 +92,15 @@ class OrderWorker implements Runnable {
             orderDataMapper.insertBatch(bufferList);
 
         } catch (Exception e) {
-            System.out.println(e.getStackTrace());
+            e.printStackTrace();
+        } finally {
+            if (bufferedReader != null) {
+                try {
+                    bufferedReader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 

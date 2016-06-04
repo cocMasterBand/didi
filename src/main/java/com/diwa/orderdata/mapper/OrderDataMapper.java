@@ -19,5 +19,5 @@ public interface OrderDataMapper {
 
     int updateByPrimaryKey(OrderData record);
 
-    int insertBatch(@Param("record") List<OrderData> record);
+    int insertBatch(List<OrderData> list);
 }
