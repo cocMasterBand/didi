@@ -49,5 +49,10 @@
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.diwa.**.model"/>
     </bean>
+
+    <bean id="orderDataMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.diwa.orderdata.mapper.OrderDataMapper" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
     
 </beans>

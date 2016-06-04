@@ -7,6 +7,7 @@ import org.springframework.util.Assert;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,15 +21,17 @@ public abstract class Worker<D, P> implements Runnable {
 
     private D dao;  //PO的dao
     private String methodName = "insert";  //对应dao的方法 默认insert
+    private Method method;
     private String path;    //文件路径
     private TransLineFunction<P> transLineFunction;     //将文件的一行, 变成一个PO的方法
 
     public Worker() {
     }
 
-    public Worker(D dao, String methodName, String path, TransLineFunction<P> transLineFunction) {
+    public Worker(D dao, String methodName, Method method, String path, TransLineFunction<P> transLineFunction) {
         this.dao = dao;
         this.methodName = methodName;
+        this.method = method;
         this.path = path;
         this.transLineFunction = transLineFunction;
     }
@@ -54,20 +57,26 @@ public abstract class Worker<D, P> implements Runnable {
                 count++;
 
                 if (count == 1000){
-                    this.putInDb(bufferList);
+                    this.putInDb(insert, dao, bufferList);
                     bufferList = Collections.emptyList();
                 }
             }
 
             //将剩余的加入
-            this.putInDb(bufferList);
+            this.putInDb(insert, dao, bufferList);
 
         } catch (Exception e) {
             System.out.println(e.getStackTrace());
         }
     }
 
-    private void putInDb(List<P> bufferList){
-
+    private void putInDb(Method method, D d, List<P> bufferList){
+        try {
+            method.invoke(d, bufferList);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 }

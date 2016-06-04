@@ -24,37 +24,18 @@ public class BootStrap {
 
     private static ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/root-context.xml");
 
-    private static ConfigUtils configUtils = applicationContext.getBean(ConfigUtils.class);
-
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public static void main(String[] args) {
         logger.info("BootStrap Main begin.");
 
-        OrderDataMapper orderDataMapper = applicationContext.getBean(OrderDataMapper.class);
-
-
-        List list = new ArrayList<>();
-        for (int i = 0; i < 5; i++){
-            OrderData orderData = new OrderData();
-            orderData.setDriverId(i + "");
-            orderData.setOrderId(i + "");
-            orderData.setPassengerId(i + "");
-            orderData.setDestDistrictHash(i + "");
-            orderData.setStartDistrictHash(i + "");
-            orderData.setPrice((double) i);
-            orderData.setTime("2016-06-03 18:06:0" + i);
-            orderData.setOrderTime(new Timestamp(System.currentTimeMillis()));
-            list.add(orderData);
-        }
-
-        orderDataMapper.insertBatch(list);
+        OrderDataMapper orderDataMapper = (OrderDataMapper) applicationContext.getBean("orderDataMapper");
 
         //        sample 4 OrderData
         getOrderDataFilePath().forEach(path -> {
             new Thread(new Worker<OrderDataMapper, OrderData>(
                     orderDataMapper,
-                    "insert",
+                    "insertBatch",
                     path,
                     new TransLineFunction<OrderData>() {
                         @Override
@@ -90,7 +71,7 @@ public class BootStrap {
         return timestamp;
     }
 
-    private static List<String> getOrderDataFilePath(){
+    private static List<String> getOrderDataFilePath() {
         return new ArrayList<>(Arrays.asList("/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-01",
                 "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-02",
                 "/Users/di/Desktop/didi/season_1/training_data/order_data/order_data_2016-01-03",
