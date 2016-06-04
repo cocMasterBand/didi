@@ -2,6 +2,7 @@ package com.diwa.bootstrap;
 
 import com.diwa.orderdata.mapper.OrderDataMapper;
 import com.diwa.orderdata.model.OrderData;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -29,11 +30,14 @@ public class OrderReader {
     public static void main(String[] args) {
 
         OrderDataMapper orderDataMapper = (OrderDataMapper) applicationContext.getBean("orderDataMapper");
-        BootStrap.getOrderDataFilePath().forEach(path -> {
-            new Thread(
-                    new OrderWorker(orderDataMapper, path)
-            ).start();
-        });
+
+        OrderData orderData = orderDataMapper.selectByPrimaryKey(1);
+        System.out.println(ToStringBuilder.reflectionToString(orderData));
+//        BootStrap.getOrderDataFilePath().forEach(path -> {
+//            new Thread(
+//                    new OrderWorker(orderDataMapper, path)
+//            ).start();
+//        });
     }
 }
 

@@ -3,6 +3,7 @@ package com.diwa.orderdata.mapper;
 import com.diwa.orderdata.model.OrderData;
 import org.apache.ibatis.annotations.Param;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 public interface OrderDataMapper {
