@@ -28,8 +28,8 @@
             <list>
                 <!-- 推荐使用file的方式引入，这样可以将配置和代码分离 -->
                 <!-- <value>classpath:napos.properties</value> -->
-                <value>classpath:search.properties</value>
-                <value>classpath:mail.properties</value>
+                <!--<value>classpath:search.properties</value>-->
+                <!--<value>classpath:mail.properties</value>-->
             </list>
         </constructor-arg>
     </bean>
