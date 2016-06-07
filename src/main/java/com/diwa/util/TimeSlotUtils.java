@@ -2,10 +2,9 @@ package com.diwa.util;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Created by hanruofei on 16/6/7.
@@ -14,11 +13,15 @@ public class TimeSlotUtils {
 
     public static TimeDimension getPiece(Timestamp timestamp){
         TimeDimension timeDimension = new TimeDimension();
-        timeDimension.setTimestamp(timestamp);
 
         Time time = new Time(timestamp.getTime());
         timeDimension.setPiece(time.getHours() * 6 + time.getMinutes() / 10 + 1);
 
+        timestamp.setHours(0);
+        timestamp.setMinutes(0);
+        timestamp.setSeconds(0);
+        timestamp.setNanos(0);
+        timeDimension.setTimestamp(timestamp);
         return timeDimension;
     }
 
@@ -58,5 +61,6 @@ public class TimeSlotUtils {
         System.out.println(i);
 
         System.out.println(ToStringBuilder.reflectionToString(TimeSlotUtils.getPiece(new Timestamp(System.currentTimeMillis()))));
+
     }
 }
