@@ -1,6 +1,7 @@
 package com.diwa.bootstrap;
 
 import com.diwa.euclid.dto.EuclidGap;
+import com.diwa.euclid.dto.EuclidUniq;
 import com.diwa.euclid.mapper.EuclidMapper;
 import com.diwa.euclid.model.Euclid;
 import com.diwa.orderdata.model.OrderData;
@@ -33,7 +34,7 @@ public class DidiEuclidMain {
         EuclidMapper euclidMapper = (EuclidMapper) applicationContext.getBean("euclidMapper");
 
         //先读取内容 , 划分时间片
-        Map<TimeSlotUtils.TimeDimension, EuclidGap> allMap = new HashMap<>();
+        Map<EuclidUniq, EuclidGap> allMap = new HashMap<>();
 
         BootStrap.getOrderDataFilePath().forEach(path -> {
 
@@ -50,8 +51,13 @@ public class DidiEuclidMain {
                     if (count % 100000 == 0) System.out.println(String.format("file:%s, count:%s", path, count));
                     OrderData reduce = deal(str);
                     TimeSlotUtils.TimeDimension piece = TimeSlotUtils.getPiece(reduce.getOrderTime());
-                    if (allMap.containsKey(piece)) {
-                        EuclidGap euclidGap = allMap.get(piece);
+                    EuclidUniq uniq = new EuclidUniq();
+                    uniq.setDate(piece.getTimestamp());
+                    uniq.setPiece(piece.getPiece());
+                    uniq.setHash(reduce.getStartDistrictHash());
+
+                    if (allMap.containsKey(uniq)) {
+                        EuclidGap euclidGap = allMap.get(uniq);
                         if (reduce.getDriverId() != null) {
                             euclidGap.setRequest(euclidGap.getRequest() + 1);
                             euclidGap.setResponse(euclidGap.getResponse() + 1);
@@ -62,9 +68,8 @@ public class DidiEuclidMain {
                         EuclidGap gap = new EuclidGap();
                         gap.setRequest(1);
                         gap.setResponse(reduce.getDriverId() == null ? 0 : 1);
-                        gap.setStart_from_hash(reduce.getStartDistrictHash());
 
-                        allMap.put(piece, gap);
+                        allMap.put(uniq, gap);
                     }
                 }
 
@@ -82,20 +87,20 @@ public class DidiEuclidMain {
 
         List<Euclid> euclids = new ArrayList<>();
         int count = 0;
-        for (Map.Entry<TimeSlotUtils.TimeDimension, EuclidGap> entry : allMap.entrySet()) {
+        for (Map.Entry<EuclidUniq, EuclidGap> entry : allMap.entrySet()) {
             count ++;
             Euclid euclid = new Euclid();
-            euclid.setDate(entry.getKey().getTimestamp());
+            euclid.setDate(entry.getKey().getDate());
             euclid.setTimePiece(entry.getKey().getPiece());
 
             euclid.setRequest(entry.getValue().getRequest());
             euclid.setResponse(entry.getValue().getResponse());
-            euclid.setStartHash(entry.getValue().getStart_from_hash());
+            euclid.setStartHash(entry.getKey().getHash());
 
             euclids.add(euclid);
 
-            if (count == 300){
-                System.out.println("300, insert" );
+            if (count == 1000){
+                System.out.println("1k, insert" );
 
                 try {
                     euclidMapper.insertBatch(euclids);
