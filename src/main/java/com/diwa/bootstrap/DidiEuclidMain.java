@@ -62,6 +62,7 @@ public class DidiEuclidMain {
                         EuclidGap gap = new EuclidGap();
                         gap.setRequest(1);
                         gap.setResponse(reduce.getDriverId() == null ? 0 : 1);
+                        gap.setStart_from_hash(reduce.getStartDistrictHash());
 
                         allMap.put(piece, gap);
                     }
@@ -89,14 +90,20 @@ public class DidiEuclidMain {
 
             euclid.setRequest(entry.getValue().getRequest());
             euclid.setResponse(entry.getValue().getResponse());
+            euclid.setStartHash(entry.getValue().getStart_from_hash());
 
             euclids.add(euclid);
 
-            if (count == 10000){
-                System.out.println("1w, insert" );
+            if (count == 300){
+                System.out.println("300, insert" );
 
-                euclidMapper.insertBatch(euclids);
+                try {
+                    euclidMapper.insertBatch(euclids);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 euclids = new ArrayList<>();
+                count = 0;
             }
         }
         //剩余所有

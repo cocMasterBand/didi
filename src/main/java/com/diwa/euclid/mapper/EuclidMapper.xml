@@ -187,7 +187,7 @@
   </update>
 
   <insert id="insertBatch" parameterType="java.util.List">
-    insert into didi_euclid (id, date, time_piece,
+    insert into didi_euclid (date, time_piece,
     start_id, start_hash, weather,
     PM, temperature, poi_class,
     tj_level, euclid_value, request,
@@ -195,18 +195,18 @@
     values
     <foreach collection="list" index="index" item="record" separator=",">
       (
-      #{list.date,jdbcType=TIMESTAMP},
-      #{list.timePiece,jdbcType=INTEGER},
-      #{list.startId,jdbcType=INTEGER},
-      #{list.startHash,jdbcType=VARCHAR},
-      #{list.weather,jdbcType=INTEGER},
-      #{list.pm,jdbcType=INTEGER},
-      #{list.temperature,jdbcType=TINYINT},
-      #{list.poiClass,jdbcType=VARCHAR},
-      #{list.tjLevel,jdbcType=INTEGER},
-      #{list.euclidValue,jdbcType=DOUBLE},
-      #{list.request,jdbcType=INTEGER},
-      #{list.response,jdbcType=INTEGER}
+      #{record.date,jdbcType=TIMESTAMP},
+      #{record.timePiece,jdbcType=INTEGER},
+      #{record.startId,jdbcType=INTEGER},
+      #{record.startHash,jdbcType=VARCHAR},
+      #{record.weather,jdbcType=INTEGER},
+      #{record.pm,jdbcType=INTEGER},
+      #{record.temperature,jdbcType=TINYINT},
+      #{record.poiClass,jdbcType=VARCHAR},
+      #{record.tjLevel,jdbcType=INTEGER},
+      #{record.euclidValue,jdbcType=DOUBLE},
+      #{record.request,jdbcType=INTEGER},
+      #{record.response,jdbcType=INTEGER}
       )
     </foreach>
   </insert>
