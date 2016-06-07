@@ -29,6 +29,25 @@ public class TimeSlotUtils {
         private Timestamp timestamp;
         private Integer piece;
 
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof TimeDimension)) return false;
+
+            TimeDimension that = (TimeDimension) o;
+
+            if (timestamp != null ? !timestamp.equals(that.timestamp) : that.timestamp != null) return false;
+            return piece != null ? piece.equals(that.piece) : that.piece == null;
+
+        }
+
+        @Override
+        public int hashCode() {
+            int result = timestamp != null ? timestamp.hashCode() : 0;
+            result = 31 * result + (piece != null ? piece.hashCode() : 0);
+            return result;
+        }
+
         public Timestamp getTimestamp() {
             return timestamp;
         }

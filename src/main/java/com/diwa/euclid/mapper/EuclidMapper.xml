@@ -5,6 +5,8 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="date" property="date" jdbcType="TIMESTAMP" />
     <result column="time_piece" property="timePiece" jdbcType="INTEGER" />
+    <result column="start_id" property="startId" jdbcType="INTEGER" />
+    <result column="start_hash" property="startHash" jdbcType="VARCHAR" />
     <result column="weather" property="weather" jdbcType="INTEGER" />
     <result column="PM" property="pm" jdbcType="INTEGER" />
     <result column="temperature" property="temperature" jdbcType="TINYINT" />
@@ -13,7 +15,8 @@
     <result column="euclid_value" property="euclidValue" jdbcType="DOUBLE" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, date, time_piece, weather, PM, temperature, poi_class, tj_level, euclid_value
+    id, date, time_piece, start_id, start_hash, weather, PM, temperature, poi_class, 
+    tj_level, euclid_value
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -27,13 +30,13 @@
   </delete>
   <insert id="insert" parameterType="com.diwa.euclid.model.Euclid" >
     insert into didi_euclid (id, date, time_piece, 
-      weather, PM, temperature, 
-      poi_class, tj_level, euclid_value
-      )
+      start_id, start_hash, weather, 
+      PM, temperature, poi_class, 
+      tj_level, euclid_value)
     values (#{id,jdbcType=INTEGER}, #{date,jdbcType=TIMESTAMP}, #{timePiece,jdbcType=INTEGER}, 
-      #{weather,jdbcType=INTEGER}, #{pm,jdbcType=INTEGER}, #{temperature,jdbcType=TINYINT}, 
-      #{poiClass,jdbcType=VARCHAR}, #{tjLevel,jdbcType=INTEGER}, #{euclidValue,jdbcType=DOUBLE}
-      )
+      #{startId,jdbcType=INTEGER}, #{startHash,jdbcType=VARCHAR}, #{weather,jdbcType=INTEGER}, 
+      #{pm,jdbcType=INTEGER}, #{temperature,jdbcType=TINYINT}, #{poiClass,jdbcType=VARCHAR}, 
+      #{tjLevel,jdbcType=INTEGER}, #{euclidValue,jdbcType=DOUBLE})
   </insert>
   <insert id="insertSelective" parameterType="com.diwa.euclid.model.Euclid" >
     insert into didi_euclid
@@ -46,6 +49,12 @@
       </if>
       <if test="timePiece != null" >
         time_piece,
+      </if>
+      <if test="startId != null" >
+        start_id,
+      </if>
+      <if test="startHash != null" >
+        start_hash,
       </if>
       <if test="weather != null" >
         weather,
@@ -76,6 +85,12 @@
       <if test="timePiece != null" >
         #{timePiece,jdbcType=INTEGER},
       </if>
+      <if test="startId != null" >
+        #{startId,jdbcType=INTEGER},
+      </if>
+      <if test="startHash != null" >
+        #{startHash,jdbcType=VARCHAR},
+      </if>
       <if test="weather != null" >
         #{weather,jdbcType=INTEGER},
       </if>
@@ -105,6 +120,12 @@
       <if test="timePiece != null" >
         time_piece = #{timePiece,jdbcType=INTEGER},
       </if>
+      <if test="startId != null" >
+        start_id = #{startId,jdbcType=INTEGER},
+      </if>
+      <if test="startHash != null" >
+        start_hash = #{startHash,jdbcType=VARCHAR},
+      </if>
       <if test="weather != null" >
         weather = #{weather,jdbcType=INTEGER},
       </if>
@@ -130,6 +151,8 @@
     update didi_euclid
     set date = #{date,jdbcType=TIMESTAMP},
       time_piece = #{timePiece,jdbcType=INTEGER},
+      start_id = #{startId,jdbcType=INTEGER},
+      start_hash = #{startHash,jdbcType=VARCHAR},
       weather = #{weather,jdbcType=INTEGER},
       PM = #{pm,jdbcType=INTEGER},
       temperature = #{temperature,jdbcType=TINYINT},
@@ -141,14 +164,16 @@
 
   <insert id="insertBatch" parameterType="java.util.List">
     insert into didi_euclid (id, date, time_piece,
-    weather, PM, temperature,
-    poi_class, tj_level, euclid_value
-    )
+    start_id, start_hash, weather,
+    PM, temperature, poi_class,
+    tj_level, euclid_value)
     values
     <foreach collection="list" index="index" item="record" separator=",">
       (
       #{list.date,jdbcType=TIMESTAMP},
       #{list.timePiece,jdbcType=INTEGER},
+      #{list.startId,jdbcType=INTEGER},
+      #{list.startHash,jdbcType=VARCHAR},
       #{list.weather,jdbcType=INTEGER},
       #{list.pm,jdbcType=INTEGER},
       #{list.temperature,jdbcType=TINYINT},

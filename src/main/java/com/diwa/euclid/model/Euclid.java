@@ -9,6 +9,10 @@ public class Euclid {
 
     private Integer timePiece;
 
+    private Integer startId;
+
+    private String startHash;
+
     private Integer weather;
 
     private Integer pm;
@@ -27,6 +31,8 @@ public class Euclid {
         sb.append("id=").append(id);
         sb.append(", date=").append(date);
         sb.append(", timePiece=").append(timePiece);
+        sb.append(", startId=").append(startId);
+        sb.append(", startHash='").append(startHash).append('\'');
         sb.append(", weather=").append(weather);
         sb.append(", pm=").append(pm);
         sb.append(", temperature=").append(temperature);
@@ -59,6 +65,22 @@ public class Euclid {
 
     public void setTimePiece(Integer timePiece) {
         this.timePiece = timePiece;
+    }
+
+    public Integer getStartId() {
+        return startId;
+    }
+
+    public void setStartId(Integer startId) {
+        this.startId = startId;
+    }
+
+    public String getStartHash() {
+        return startHash;
+    }
+
+    public void setStartHash(String startHash) {
+        this.startHash = startHash;
     }
 
     public Integer getWeather() {
