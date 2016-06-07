@@ -2,6 +2,8 @@ package com.diwa.weatherdata.mapper;
 
 import com.diwa.weatherdata.model.WeatherData;
 
+import java.util.List;
+
 public interface WeatherDataMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface WeatherDataMapper {
     int updateByPrimaryKeySelective(WeatherData record);
 
     int updateByPrimaryKey(WeatherData record);
+
+    List<WeatherData> selectAll();
 }

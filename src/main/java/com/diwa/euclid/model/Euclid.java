@@ -21,7 +21,7 @@ public class Euclid {
 
     private String poiClass;
 
-    private Integer tjLevel;
+    private String tjLevel;
 
     private Double euclidValue;
 
@@ -121,11 +121,11 @@ public class Euclid {
         this.poiClass = poiClass;
     }
 
-    public Integer getTjLevel() {
+    public String getTjLevel() {
         return tjLevel;
     }
 
-    public void setTjLevel(Integer tjLevel) {
+    public void setTjLevel(String tjLevel) {
         this.tjLevel = tjLevel;
     }
 

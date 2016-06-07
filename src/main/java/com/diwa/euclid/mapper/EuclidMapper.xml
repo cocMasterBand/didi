@@ -11,7 +11,7 @@
     <result column="PM" property="pm" jdbcType="INTEGER" />
     <result column="temperature" property="temperature" jdbcType="TINYINT" />
     <result column="poi_class" property="poiClass" jdbcType="VARCHAR" />
-    <result column="tj_level" property="tjLevel" jdbcType="INTEGER" />
+    <result column="tj_level" property="tjLevel" jdbcType="VARCHAR" />
     <result column="euclid_value" property="euclidValue" jdbcType="DOUBLE" />
     <result column="request" property="request" jdbcType="INTEGER" />
     <result column="response" property="response" jdbcType="INTEGER" />
@@ -39,7 +39,7 @@
     values (#{id,jdbcType=INTEGER}, #{date,jdbcType=TIMESTAMP}, #{timePiece,jdbcType=INTEGER}, 
       #{startId,jdbcType=INTEGER}, #{startHash,jdbcType=VARCHAR}, #{weather,jdbcType=INTEGER}, 
       #{pm,jdbcType=INTEGER}, #{temperature,jdbcType=TINYINT}, #{poiClass,jdbcType=VARCHAR}, 
-      #{tjLevel,jdbcType=INTEGER}, #{euclidValue,jdbcType=DOUBLE}, #{request,jdbcType=INTEGER}, 
+      #{tjLevel,jdbcType=VARCHAR}, #{euclidValue,jdbcType=DOUBLE}, #{request,jdbcType=INTEGER},
       #{response,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.diwa.euclid.model.Euclid" >
@@ -114,7 +114,7 @@
         #{poiClass,jdbcType=VARCHAR},
       </if>
       <if test="tjLevel != null" >
-        #{tjLevel,jdbcType=INTEGER},
+        #{tjLevel,jdbcType=VARCHAR},
       </if>
       <if test="euclidValue != null" >
         #{euclidValue,jdbcType=DOUBLE},
@@ -155,7 +155,7 @@
         poi_class = #{poiClass,jdbcType=VARCHAR},
       </if>
       <if test="tjLevel != null" >
-        tj_level = #{tjLevel,jdbcType=INTEGER},
+        tj_level = #{tjLevel,jdbcType=VARCHAR},
       </if>
       <if test="euclidValue != null" >
         euclid_value = #{euclidValue,jdbcType=DOUBLE},
@@ -179,7 +179,7 @@
       PM = #{pm,jdbcType=INTEGER},
       temperature = #{temperature,jdbcType=TINYINT},
       poi_class = #{poiClass,jdbcType=VARCHAR},
-      tj_level = #{tjLevel,jdbcType=INTEGER},
+      tj_level = #{tjLevel,jdbcType=VARCHAR},
       euclid_value = #{euclidValue,jdbcType=DOUBLE},
       request = #{request,jdbcType=INTEGER},
       response = #{response,jdbcType=INTEGER}
@@ -203,7 +203,7 @@
       #{list.pm,jdbcType=INTEGER},
       #{list.temperature,jdbcType=TINYINT},
       #{list.poiClass,jdbcType=VARCHAR},
-      #{list.tjLevel,jdbcType=INTEGER},
+      #{list.tjLevel,jdbcType=VARCHAR},
       #{list.euclidValue,jdbcType=DOUBLE},
       #{list.request,jdbcType=INTEGER},
       #{list.response,jdbcType=INTEGER}
@@ -211,5 +211,26 @@
     </foreach>
   </insert>
 
+    <update id="updateBatchByDate"  parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update didi_euclid
+                <set>
+                    weather=${item.weather},
+                    PM=${item.pm},
+                    temperature=${item.temperature}
+                </set>
+            where date = #{item.date} AND time_piece = #{item.timePiece}
+        </foreach>
+    </update>
+
+    <update id="updateBatchByHash"  parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update didi_euclid
+                <set>
+                    tj_level=#{item.tjLevel}
+                </set>
+            where start_hash = #{item.startHash} AND date = #{item.date} AND time_piece = #{item.timePiece}
+        </foreach>
+    </update>
 
 </mapper>

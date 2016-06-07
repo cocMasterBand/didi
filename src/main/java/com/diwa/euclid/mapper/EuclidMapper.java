@@ -18,4 +18,7 @@ public interface EuclidMapper {
     int updateByPrimaryKey(Euclid record);
 
     int insertBatch(List<Euclid> list);
+
+    int updateBatchByDate(List<Euclid> list);
+    int updateBatchByHash(List<Euclid> list);
 }
