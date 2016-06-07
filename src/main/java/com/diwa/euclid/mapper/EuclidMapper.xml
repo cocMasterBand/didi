@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.diwa.euclid.mapper.EuclidMapper" >
+  <resultMap id="BaseResultMap" type="com.diwa.euclid.model.Euclid" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="date" property="date" jdbcType="TIMESTAMP" />
+    <result column="time_piece" property="timePiece" jdbcType="INTEGER" />
+    <result column="weather" property="weather" jdbcType="INTEGER" />
+    <result column="PM" property="pm" jdbcType="INTEGER" />
+    <result column="temperature" property="temperature" jdbcType="TINYINT" />
+    <result column="poi_class" property="poiClass" jdbcType="VARCHAR" />
+    <result column="tj_level" property="tjLevel" jdbcType="INTEGER" />
+    <result column="euclid_value" property="euclidValue" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, date, time_piece, weather, PM, temperature, poi_class, tj_level, euclid_value
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from didi_euclid
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from didi_euclid
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.diwa.euclid.model.Euclid" >
+    insert into didi_euclid (id, date, time_piece, 
+      weather, PM, temperature, 
+      poi_class, tj_level, euclid_value
+      )
+    values (#{id,jdbcType=INTEGER}, #{date,jdbcType=TIMESTAMP}, #{timePiece,jdbcType=INTEGER}, 
+      #{weather,jdbcType=INTEGER}, #{pm,jdbcType=INTEGER}, #{temperature,jdbcType=TINYINT}, 
+      #{poiClass,jdbcType=VARCHAR}, #{tjLevel,jdbcType=INTEGER}, #{euclidValue,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.diwa.euclid.model.Euclid" >
+    insert into didi_euclid
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="timePiece != null" >
+        time_piece,
+      </if>
+      <if test="weather != null" >
+        weather,
+      </if>
+      <if test="pm != null" >
+        PM,
+      </if>
+      <if test="temperature != null" >
+        temperature,
+      </if>
+      <if test="poiClass != null" >
+        poi_class,
+      </if>
+      <if test="tjLevel != null" >
+        tj_level,
+      </if>
+      <if test="euclidValue != null" >
+        euclid_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timePiece != null" >
+        #{timePiece,jdbcType=INTEGER},
+      </if>
+      <if test="weather != null" >
+        #{weather,jdbcType=INTEGER},
+      </if>
+      <if test="pm != null" >
+        #{pm,jdbcType=INTEGER},
+      </if>
+      <if test="temperature != null" >
+        #{temperature,jdbcType=TINYINT},
+      </if>
+      <if test="poiClass != null" >
+        #{poiClass,jdbcType=VARCHAR},
+      </if>
+      <if test="tjLevel != null" >
+        #{tjLevel,jdbcType=INTEGER},
+      </if>
+      <if test="euclidValue != null" >
+        #{euclidValue,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.diwa.euclid.model.Euclid" >
+    update didi_euclid
+    <set >
+      <if test="date != null" >
+        date = #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timePiece != null" >
+        time_piece = #{timePiece,jdbcType=INTEGER},
+      </if>
+      <if test="weather != null" >
+        weather = #{weather,jdbcType=INTEGER},
+      </if>
+      <if test="pm != null" >
+        PM = #{pm,jdbcType=INTEGER},
+      </if>
+      <if test="temperature != null" >
+        temperature = #{temperature,jdbcType=TINYINT},
+      </if>
+      <if test="poiClass != null" >
+        poi_class = #{poiClass,jdbcType=VARCHAR},
+      </if>
+      <if test="tjLevel != null" >
+        tj_level = #{tjLevel,jdbcType=INTEGER},
+      </if>
+      <if test="euclidValue != null" >
+        euclid_value = #{euclidValue,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.diwa.euclid.model.Euclid" >
+    update didi_euclid
+    set date = #{date,jdbcType=TIMESTAMP},
+      time_piece = #{timePiece,jdbcType=INTEGER},
+      weather = #{weather,jdbcType=INTEGER},
+      PM = #{pm,jdbcType=INTEGER},
+      temperature = #{temperature,jdbcType=TINYINT},
+      poi_class = #{poiClass,jdbcType=VARCHAR},
+      tj_level = #{tjLevel,jdbcType=INTEGER},
+      euclid_value = #{euclidValue,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into didi_euclid (id, date, time_piece,
+    weather, PM, temperature,
+    poi_class, tj_level, euclid_value
+    )
+    values
+    <foreach collection="list" index="index" item="record" separator=",">
+      (
+      #{list.date,jdbcType=TIMESTAMP},
+      #{list.timePiece,jdbcType=INTEGER},
+      #{list.weather,jdbcType=INTEGER},
+      #{list.pm,jdbcType=INTEGER},
+      #{list.temperature,jdbcType=TINYINT},
+      #{list.poiClass,jdbcType=VARCHAR},
+      #{list.tjLevel,jdbcType=INTEGER},
+      #{list.euclidValue,jdbcType=DOUBLE}
+      )
+    </foreach>
+  </insert>
+</mapper>
