@@ -1,7 +1,10 @@
 package com.diwa.bootstrap;
 
+import com.diwa.euclid.dto.EuclidGap;
 import com.diwa.euclid.mapper.EuclidMapper;
+import com.diwa.euclid.model.Euclid;
 import com.diwa.orderdata.model.OrderData;
+import com.diwa.util.TimeSlotUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -11,8 +14,9 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by di on 4/6/2016.
@@ -22,26 +26,45 @@ public class DidiEuclidMain {
 
     private static ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/root-context.xml");
 
+    private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
     public static void main(String[] args) {
 
         EuclidMapper euclidMapper = (EuclidMapper) applicationContext.getBean("euclidMapper");
 
         //先读取内容 , 划分时间片
+        Map<TimeSlotUtils.TimeDimension, EuclidGap> allMap = new HashMap<>();
+
         BootStrap.getOrderDataFilePath().forEach(path -> {
 
+            System.out.println("path" + path + "begin");
             BufferedReader bufferedReader = null;
             try {
                 bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(path)));
 
                 String str = "";
 
-                int sum = 0;
                 int count = 0;
-                List<OrderData> bufferList = new ArrayList<>();
-
                 while ((str = bufferedReader.readLine()) != null) {
-                    sum++;
+                    count++;
+                    if (count % 100000 == 0) System.out.println(String.format("file:%s, count:%s", path, count));
+                    OrderData reduce = deal(str);
+                    TimeSlotUtils.TimeDimension piece = TimeSlotUtils.getPiece(reduce.getOrderTime());
+                    if (allMap.containsKey(piece)) {
+                        EuclidGap euclidGap = allMap.get(piece);
+                        if (reduce.getDriverId() != null) {
+                            euclidGap.setRequest(euclidGap.getRequest() + 1);
+                            euclidGap.setResponse(euclidGap.getResponse() + 1);
+                        } else {
+                            euclidGap.setRequest(euclidGap.getRequest() + 1);
+                        }
+                    } else {
+                        EuclidGap gap = new EuclidGap();
+                        gap.setRequest(1);
+                        gap.setResponse(reduce.getDriverId() == null ? 0 : 1);
 
+                        allMap.put(piece, gap);
+                    }
                 }
 
             } catch (Exception e) {
@@ -53,8 +76,66 @@ public class DidiEuclidMain {
                     }
                 }
             }
+            System.out.println("path" + path + "end");
         });
+
+        List<Euclid> euclids = new ArrayList<>();
+        int count = 0;
+        for (Map.Entry<TimeSlotUtils.TimeDimension, EuclidGap> entry : allMap.entrySet()) {
+            count ++;
+            Euclid euclid = new Euclid();
+            euclid.setDate(entry.getKey().getTimestamp());
+            euclid.setTimePiece(entry.getKey().getPiece());
+
+            euclid.setRequest(entry.getValue().getRequest());
+            euclid.setResponse(entry.getValue().getResponse());
+
+            euclids.add(euclid);
+
+            if (count == 10000){
+                System.out.println("1w, insert" );
+
+                euclidMapper.insertBatch(euclids);
+                euclids = new ArrayList<>();
+            }
+        }
+        //剩余所有
+        euclidMapper.insertBatch(euclids);
+
+
+
     }
 
+    private static OrderData deal(String line) {
+        String[] split = line.split("\\t");
+        OrderData orderData = new OrderData();
+        orderData.setOrderId(split[0]);
+        orderData.setDriverId("NULL".equals(split[1]) ? null : split[1]);
+        orderData.setPassengerId(split[2]);
+        orderData.setStartDistrictHash(split[3]);
+        orderData.setDestDistrictHash(split[4]);
+        double parseDouble = 0D;
+        try {
+            parseDouble = Double.parseDouble(split[5]);
+        } catch (Exception e) {
+        }
+        orderData.setPrice(parseDouble);
+        orderData.setTime(split[6]);
+        orderData.setOrderTime(getTimeByStr(split[6]));
+        return orderData;
+    }
+
+    private static Timestamp getTimeByStr(String string) {
+        Timestamp timestamp;
+        Date parse = new Date();
+        try {
+            parse = sdf.parse(string);
+        } catch (Exception e) {
+
+        }
+        timestamp = new Timestamp(parse.getTime());
+
+        return timestamp;
+    }
 
 }

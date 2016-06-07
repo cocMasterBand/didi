@@ -25,6 +25,10 @@ public class Euclid {
 
     private Double euclidValue;
 
+    private Integer request;
+
+    private Integer response;
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Euclid{");
@@ -39,6 +43,8 @@ public class Euclid {
         sb.append(", poiClass='").append(poiClass).append('\'');
         sb.append(", tjLevel=").append(tjLevel);
         sb.append(", euclidValue=").append(euclidValue);
+        sb.append(", request=").append(request);
+        sb.append(", response=").append(response);
         sb.append('}');
         return sb.toString();
     }
@@ -129,5 +135,21 @@ public class Euclid {
 
     public void setEuclidValue(Double euclidValue) {
         this.euclidValue = euclidValue;
+    }
+
+    public Integer getRequest() {
+        return request;
+    }
+
+    public void setRequest(Integer request) {
+        this.request = request;
+    }
+
+    public Integer getResponse() {
+        return response;
+    }
+
+    public void setResponse(Integer response) {
+        this.response = response;
     }
 }

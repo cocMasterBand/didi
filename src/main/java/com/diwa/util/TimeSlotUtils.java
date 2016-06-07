@@ -25,7 +25,7 @@ public class TimeSlotUtils {
         return timeDimension;
     }
 
-    private static class TimeDimension{
+    public static class TimeDimension{
         private Timestamp timestamp;
         private Integer piece;
 
