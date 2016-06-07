@@ -1,0 +1,21 @@
+CREATE TABLE `didi_join` (
+	`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+	`order_id` varchar(64) NOT NULL DEFAULT '' COMMENT '订单id',
+	`driver_id` varchar(32) DEFAULT '' COMMENT '司机id, 为空表示无人响应',
+	`passenger_id` varchar(32) NOT NULL DEFAULT '' COMMENT '用户id',
+	`start_district_hash` varchar(32) NOT NULL DEFAULT '' COMMENT '出发地区域哈希值',
+	`dest_district_hash` varchar(32) NOT NULL DEFAULT '' COMMENT '目的地区域哈希值',
+	`price` double(11,2) NOT NULL COMMENT '价格',
+	`order_time_str` varchar(32) NOT NULL DEFAULT '' COMMENT '订单时间戳',
+	`order_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '订单创建时间',
+	`start_poi_class` varchar(2048) NOT NULL DEFAULT '' COMMENT '起点POI类目及其数量',
+	`dest_poi_class` varchar(2048) NOT NULL DEFAULT '' COMMENT '终点POI类目及其数量',
+	`start_tj_level` varchar(64) NOT NULL DEFAULT '' COMMENT '不同拥堵程度的路段数',
+	`dest_tj_level` varchar(64) NOT NULL DEFAULT '' COMMENT '不同拥堵程度的路段数',
+	`tj_time_str` varchar(32) NOT NULL DEFAULT '' COMMENT '时间戳',
+	`traffic_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '拥堵时间',
+	`weather` int(11) NOT NULL COMMENT '天气',
+	`temperature` tinyint(11) NOT NULL COMMENT '温度',
+	`PM` int(11) NOT NULL COMMENT 'pm2.5',
+	KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
