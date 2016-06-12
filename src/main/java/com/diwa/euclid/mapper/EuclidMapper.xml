@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.diwa.euclid.mapper.EuclidMapper" >
-  <resultMap id="BaseResultMap" type="com.diwa.euclid.model.Euclid" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="date" property="date" jdbcType="TIMESTAMP" />
-    <result column="time_piece" property="timePiece" jdbcType="INTEGER" />
-    <result column="start_id" property="startId" jdbcType="INTEGER" />
-    <result column="start_hash" property="startHash" jdbcType="VARCHAR" />
-    <result column="weather" property="weather" jdbcType="INTEGER" />
-    <result column="PM" property="pm" jdbcType="INTEGER" />
-    <result column="temperature" property="temperature" jdbcType="TINYINT" />
-    <result column="poi_class" property="poiClass" jdbcType="VARCHAR" />
-    <result column="tj_level" property="tjLevel" jdbcType="VARCHAR" />
-    <result column="euclid_value" property="euclidValue" jdbcType="DOUBLE" />
-    <result column="request" property="request" jdbcType="INTEGER" />
-    <result column="response" property="response" jdbcType="INTEGER" />
+<mapper namespace="com.diwa.euclid.mapper.EuclidMapper">
+  <resultMap id="BaseResultMap" type="com.diwa.euclid.model.Euclid">
+    <id column="id" property="id" jdbcType="INTEGER"/>
+    <result column="date" property="date" jdbcType="TIMESTAMP"/>
+    <result column="time_piece" property="timePiece" jdbcType="INTEGER"/>
+    <result column="start_id" property="startId" jdbcType="INTEGER"/>
+    <result column="start_hash" property="startHash" jdbcType="VARCHAR"/>
+    <result column="weather" property="weather" jdbcType="INTEGER"/>
+    <result column="PM" property="pm" jdbcType="INTEGER"/>
+    <result column="temperature" property="temperature" jdbcType="TINYINT"/>
+    <result column="poi_class" property="poiClass" jdbcType="VARCHAR"/>
+    <result column="tj_level" property="tjLevel" jdbcType="VARCHAR"/>
+    <result column="euclid_value" property="euclidValue" jdbcType="DOUBLE"/>
+    <result column="request" property="request" jdbcType="INTEGER"/>
+    <result column="response" property="response" jdbcType="INTEGER"/>
   </resultMap>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     id, date, time_piece, start_id, start_hash, weather, PM, temperature, poi_class, 
     tj_level, euclid_value, request, response
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List"/>
     from didi_euclid
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from didi_euclid
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.diwa.euclid.model.Euclid" >
+  <insert id="insert" parameterType="com.diwa.euclid.model.Euclid">
     insert into didi_euclid (id, date, time_piece, 
       start_id, start_hash, weather, 
       PM, temperature, poi_class, 
@@ -42,134 +42,134 @@
       #{tjLevel,jdbcType=VARCHAR}, #{euclidValue,jdbcType=DOUBLE}, #{request,jdbcType=INTEGER},
       #{response,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.diwa.euclid.model.Euclid" >
+  <insert id="insertSelective" parameterType="com.diwa.euclid.model.Euclid">
     insert into didi_euclid
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="date != null" >
+      <if test="date != null">
         date,
       </if>
-      <if test="timePiece != null" >
+      <if test="timePiece != null">
         time_piece,
       </if>
-      <if test="startId != null" >
+      <if test="startId != null">
         start_id,
       </if>
-      <if test="startHash != null" >
+      <if test="startHash != null">
         start_hash,
       </if>
-      <if test="weather != null" >
+      <if test="weather != null">
         weather,
       </if>
-      <if test="pm != null" >
+      <if test="pm != null">
         PM,
       </if>
-      <if test="temperature != null" >
+      <if test="temperature != null">
         temperature,
       </if>
-      <if test="poiClass != null" >
+      <if test="poiClass != null">
         poi_class,
       </if>
-      <if test="tjLevel != null" >
+      <if test="tjLevel != null">
         tj_level,
       </if>
-      <if test="euclidValue != null" >
+      <if test="euclidValue != null">
         euclid_value,
       </if>
-      <if test="request != null" >
+      <if test="request != null">
         request,
       </if>
-      <if test="response != null" >
+      <if test="response != null">
         response,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="date != null" >
+      <if test="date != null">
         #{date,jdbcType=TIMESTAMP},
       </if>
-      <if test="timePiece != null" >
+      <if test="timePiece != null">
         #{timePiece,jdbcType=INTEGER},
       </if>
-      <if test="startId != null" >
+      <if test="startId != null">
         #{startId,jdbcType=INTEGER},
       </if>
-      <if test="startHash != null" >
+      <if test="startHash != null">
         #{startHash,jdbcType=VARCHAR},
       </if>
-      <if test="weather != null" >
+      <if test="weather != null">
         #{weather,jdbcType=INTEGER},
       </if>
-      <if test="pm != null" >
+      <if test="pm != null">
         #{pm,jdbcType=INTEGER},
       </if>
-      <if test="temperature != null" >
+      <if test="temperature != null">
         #{temperature,jdbcType=TINYINT},
       </if>
-      <if test="poiClass != null" >
+      <if test="poiClass != null">
         #{poiClass,jdbcType=VARCHAR},
       </if>
-      <if test="tjLevel != null" >
+      <if test="tjLevel != null">
         #{tjLevel,jdbcType=VARCHAR},
       </if>
-      <if test="euclidValue != null" >
+      <if test="euclidValue != null">
         #{euclidValue,jdbcType=DOUBLE},
       </if>
-      <if test="request != null" >
+      <if test="request != null">
         #{request,jdbcType=INTEGER},
       </if>
-      <if test="response != null" >
+      <if test="response != null">
         #{response,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.diwa.euclid.model.Euclid" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.diwa.euclid.model.Euclid">
     update didi_euclid
-    <set >
-      <if test="date != null" >
+    <set>
+      <if test="date != null">
         date = #{date,jdbcType=TIMESTAMP},
       </if>
-      <if test="timePiece != null" >
+      <if test="timePiece != null">
         time_piece = #{timePiece,jdbcType=INTEGER},
       </if>
-      <if test="startId != null" >
+      <if test="startId != null">
         start_id = #{startId,jdbcType=INTEGER},
       </if>
-      <if test="startHash != null" >
+      <if test="startHash != null">
         start_hash = #{startHash,jdbcType=VARCHAR},
       </if>
-      <if test="weather != null" >
+      <if test="weather != null">
         weather = #{weather,jdbcType=INTEGER},
       </if>
-      <if test="pm != null" >
+      <if test="pm != null">
         PM = #{pm,jdbcType=INTEGER},
       </if>
-      <if test="temperature != null" >
+      <if test="temperature != null">
         temperature = #{temperature,jdbcType=TINYINT},
       </if>
-      <if test="poiClass != null" >
+      <if test="poiClass != null">
         poi_class = #{poiClass,jdbcType=VARCHAR},
       </if>
-      <if test="tjLevel != null" >
+      <if test="tjLevel != null">
         tj_level = #{tjLevel,jdbcType=VARCHAR},
       </if>
-      <if test="euclidValue != null" >
+      <if test="euclidValue != null">
         euclid_value = #{euclidValue,jdbcType=DOUBLE},
       </if>
-      <if test="request != null" >
+      <if test="request != null">
         request = #{request,jdbcType=INTEGER},
       </if>
-      <if test="response != null" >
+      <if test="response != null">
         response = #{response,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.diwa.euclid.model.Euclid" >
+  <update id="updateByPrimaryKey" parameterType="com.diwa.euclid.model.Euclid">
     update didi_euclid
     set date = #{date,jdbcType=TIMESTAMP},
       time_piece = #{timePiece,jdbcType=INTEGER},
@@ -211,26 +211,36 @@
     </foreach>
   </insert>
 
-    <update id="updateBatchByDate"  parameterType="java.util.List">
-        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
-            update didi_euclid
-                <set>
-                    weather=${item.weather},
-                    PM=${item.pm},
-                    temperature=${item.temperature}
-                </set>
-            where date = #{item.date} AND time_piece = #{item.timePiece}
-        </foreach>
-    </update>
+  <update id="updateBatchByDate" parameterType="java.util.List">
+    <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+      update didi_euclid
+      <set>
+        weather=${item.weather},
+        PM=${item.pm},
+        temperature=${item.temperature}
+      </set>
+      where date = #{item.date} AND time_piece = #{item.timePiece}
+    </foreach>
+  </update>
 
-    <update id="updateBatchByHash"  parameterType="java.util.List">
-        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
-            update didi_euclid
-                <set>
-                    tj_level=#{item.tjLevel}
-                </set>
-            where start_hash = #{item.startHash} AND date = #{item.date} AND time_piece = #{item.timePiece}
-        </foreach>
-    </update>
+  <update id="updateBatchByHash" parameterType="java.util.List">
+    <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+      update didi_euclid
+      <set>
+        tj_level=#{item.tjLevel}
+      </set>
+      where start_hash = #{item.startHash} AND date = #{item.date} AND time_piece = #{item.timePiece}
+    </foreach>
+  </update>
+
+  <!--获取所有weather，pm，temperature为null的数据-->
+  <select id="selectToDoEuclids" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from didi_euclid
+    where weather is null and PM is null and temperature is null
+    ORDER BY date
+    limit 0,100
+  </select>
 
 </mapper>

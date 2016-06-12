@@ -2,6 +2,7 @@ package com.diwa.weatherdata.mapper;
 
 import com.diwa.weatherdata.model.WeatherData;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public interface WeatherDataMapper {
@@ -18,4 +19,6 @@ public interface WeatherDataMapper {
     int updateByPrimaryKey(WeatherData record);
 
     List<WeatherData> selectAll();
+
+    List<WeatherData> selectByDate(String timestamp);
 }

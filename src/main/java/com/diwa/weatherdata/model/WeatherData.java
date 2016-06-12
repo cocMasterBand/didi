@@ -15,6 +15,9 @@ public class WeatherData {
 
     private Timestamp weaterTime;
 
+    //增加天气的时间切片，只为计算数据用
+    private Integer weatherPeriod;
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("WeatherData{");
@@ -74,5 +77,13 @@ public class WeatherData {
 
     public void setWeaterTime(Timestamp weaterTime) {
         this.weaterTime = weaterTime;
+    }
+
+    public Integer getWeatherPeriod() {
+        return weatherPeriod;
+    }
+
+    public void setWeatherPeriod(Integer weatherPeriod) {
+        this.weatherPeriod = weatherPeriod;
     }
 }

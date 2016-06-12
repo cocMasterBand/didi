@@ -21,4 +21,6 @@ public interface EuclidMapper {
 
     int updateBatchByDate(List<Euclid> list);
     int updateBatchByHash(List<Euclid> list);
+
+    List<Euclid> selectToDoEuclids();
 }
